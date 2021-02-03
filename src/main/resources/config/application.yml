@@ -1,0 +1,20 @@
+server:
+  port: 10010
+  
+spring:
+  application:
+    name: "mber"
+  profiles:
+    active: local
+  sleuth:
+    sampler:
+      probability: 1.0
+#  zipkin:
+#    baseUrl: http://simplest-collector.default.svc.cluster.local:9411/   
+#opentracing.jaeger 구성 설정
+#opentracing:
+#  jaeger:
+#    service-name: mber #jaeger ui에 표시할 서비스명
+#    udp-sender:
+#      host: localhost      #스프링부트 서비스 pod에 sidecar 패턴으로 jager agent를 주입할 것이므로 host는 localhost로 한다.
+#      port: 6831           # jaeger udp port

@@ -1,0 +1,63 @@
+server:
+  port: 10010
+  
+spring:
+  profiles: local
+  devtools:
+    restart:
+      enabled: true
+  mvc:
+    throw-exception-if-no-handler-found: false
+  zipkin:
+    baseUrl: http://10.166.94.113:30008/
+  datasource:
+    data-source-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    hikari:
+      jdbc-url: "jdbc:log4jdbc:postgresql://10.166.94.115:5432/simple?charSet=UTF-8"
+      username: "appmber"
+      password: "appmber!!"
+      minimumIdel: 5
+      maximumPoolSize: 5
+      idelTimeout: 30000
+      #poolName: SpringBootHikariCP
+      maxLifetime: 2000000
+      connectionTimeout: 30000
+#kafka      
+  kafka:
+    producer:
+      bootstrap-servers: 10.166.94.114:9092,10.166.94.115:9092,10.166.94.116:9092
+      retries: 0
+      acks: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  redis:
+    cluster:
+      nodes: 10.166.94.114:6379,10.166.94.115:6379,10.166.94.116:6379
+      max-redirects: 3
+
+#kafka topic name
+kafka:
+  topic:
+    name:
+      mber-join: mber_join
+      mber-withdrawal: mber_withdrawal      
+
+logging:
+  level:
+    com.fkl.sample: debug
+    
+      
+#Setting Spring Boot Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  matrics:
+    tags:
+      application: ${spring.application.name}
+      
+api:
+  mber:
+    uri: "http://localhost"
+    port: 10010
